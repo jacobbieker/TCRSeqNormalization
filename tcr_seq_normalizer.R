@@ -43,5 +43,17 @@ for(spike_file in files) {
   largest_multiple <- (spiked_mean/spiked_min)
   # Getting the range for possible use at the scale
   multiple_range <- largest_multiple - smallest_multiple
+  #Range of the spiked reads
+  spiked_range <- spiked_max - spiked_min
+  vectorized_spikes <- data$V3
+  vectorized_large <- max(vectorized_spikes)
+  vectorized_small <- min(vectorized_spikes)
+  vectorized_range <- vectorized_large - vectorized_small
+  # Get change per number in range for multiple
+  delta_multiple <- multiple_range/spiked_range
+  # Convert to change per percentage
+  percentage_per_number_in_range <- 100.00/spiked_range
+  # Divide delta by percentage to get the change per 1 percent of the range
+  delta_per_one_percent <- delta_multiple/percentage_per_number_in_range
 }
 
