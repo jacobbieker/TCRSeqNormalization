@@ -1,0 +1,18 @@
+{
+    "contents" : "*.pper\n*.Rhistory",
+    "created" : 1438796558242.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2289387301",
+    "id" : "77DAFBCE",
+    "lastKnownWriteTime" : 1438796610,
+    "path" : "C:/Development/TCRSeqNormalization/.gitignore",
+    "project_path" : ".gitignore",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "type" : "gitignore"
+}
