@@ -19,6 +19,12 @@
 
 #############################################################################
 #
+#             Normalization functions
+#
+#############################################################################
+
+#############################################################################
+#
 #             Spiked Read CSV code
 #
 #############################################################################
@@ -55,5 +61,15 @@ for(spike_file in files) {
   percentage_per_number_in_range <- 100.00/spiked_range
   # Divide delta by percentage to get the change per 1 percent of the range
   delta_per_one_percent <- delta_multiple/percentage_per_number_in_range
+  
+  #Get percentages from range of FASTQ file (for now just spiked reads)
+  fastq_percentage_per_step <- 100.00/vectorized_range
+  
+  #IDEA: go through vector/data.frame, get difference between smallest value and current value
+  # Multiply by the difference and (fastq_percentage_per_step * delta_per_one_percent)
+  result_vector <- sapply(vectorized_spikes, function(x) FUN = (x) * (fastq_percentage_per_step * delta_per_one_percent))
+  
+  final_values <- rev(result_vector) * vectorized_spikes
+  #TODO: Check if range is 0, if so, do nothing for
 }
 
