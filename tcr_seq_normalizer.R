@@ -41,5 +41,7 @@ for(spike_file in files) {
   smallest_multiple <- (spiked_mean/spiked_max)
   # Get the largest multiple that the FASTQ file will be normalized by
   largest_multiple <- (spiked_mean/spiked_min)
+  # Getting the range for possible use at the scale
+  multiple_range <- largest_multiple - smallest_multiple
 }
 
