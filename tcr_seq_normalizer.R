@@ -51,32 +51,20 @@ for(spike_file in files) {
   multiple_range <- largest_multiple - smallest_multiple
   #Range of the spiked reads
   spiked_range <- spiked_max - spiked_min
-  vectorized_spikes <- data$V3
-  vectorized_large <- max(vectorized_spikes)
-  vectorized_small <- min(vectorized_spikes)
-  vectorized_range <- vectorized_large - vectorized_small
-  # Get change per number in range for multiple
-  delta_multiple <- multiple_range/spiked_range
-  # Convert to change per percentage
-  percentage_per_number_in_range <- 100.00/spiked_range
-  # Divide delta by percentage to get the change per 1 percent of the range
-  delta_per_one_percent <- delta_multiple/percentage_per_number_in_range
-  
-  #Get percentages from range of FASTQ file (for now just spiked reads)
-  fastq_percentage_per_step <- 100.00/vectorized_range
-  
-  #IDEA: go through vector/data.frame, get difference between smallest value and current value
-  # Multiply by the difference and (fastq_percentage_per_step * delta_per_one_percent)
-  result_vector <- sapply(vectorized_spikes, function(x) FUN = abs(x - vectorized_range) * (fastq_percentage_per_step * delta_per_one_percent))
-
-  final_values <- result_vector * vectorized_spikes
   
   # Test vector holding all the multiples needed to hit the mean
-  mean_test <- spiked_mean/data$V3 
+  multiples_needed <- spiked_mean/data$V3 
   
-  finals_testing <- mean_test * vectorized_spikes
+  #Get the percentage of the range for each value, for later use with the multiple needed
+  percentages_raw <- vectorized_spikes - vectorized_small
+  percentage_change <- 100.00/max(percentages_raw)
+  percentages <- percentages_raw * percentage_change
   
-  #New IDEA: Use teh 260 spiked points to estimate the amount necessary that does not hit one of the
+  #Puts the data in the data.frame for later use
+  data$V4 <- multiples_needed
+  data$V5 <- percentages
+  
+  #New IDEA: Use the 260 spiked points to estimate the amount necessary that does not hit one of the
   # percentages, take the multiple above it, the multiple below, average, and apply that to the 
   # FASTQ files, should be more accurate
   #TODO: Check if range is 0, if so, do nothing for
