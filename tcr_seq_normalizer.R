@@ -1,4 +1,4 @@
-# Designed and developed by Jacob Bieker (jacob@bieker.us)
+# Designed and developed by Jacob Bieker (jacob@bieker.tech)
 
 # Script reads in a csv file containing spiked read counts from TCR sequencing, and calculates the 
 # what number is needed to change the counts of each spiked read to the mean. 
@@ -25,3 +25,17 @@
 
 #   identify all .csv files that should be the spiked read counts in the directory 
 files <- list.files(getwd(), pattern = "*xout.csv");
+
+# Go through each file and read in the CSV data, skpping the first line which gives no information
+# All operations on the data will happen inside the for loop, so that it goes through each file
+# and each FASTQ file once
+for(spike_file in files) {
+  data <- read.csv(spike_file, header = FALSE, skip = 1);
+  #Get the mean from the last column, which is the read count
+  spiked_mean <- mean(data[[3]])
+  # The get max
+  spiked_max <- max(data[[3]])
+  # Get the min
+  spiked_min <- min(data[[3]])
+}
+
