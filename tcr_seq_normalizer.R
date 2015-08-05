@@ -9,4 +9,4 @@
 # Assumptions:
 #   1.  A CSV file per FASTQ file of the format ID,spike,count
 #   2.  A FASTQ file per CSV file
-#
+#   3.  Spiked reads are supposed to be present in the exact same frequency

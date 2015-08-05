@@ -1,12 +1,12 @@
 {
-    "contents" : "# Designed and developed by Jacob Bieker (jacob@bieker.us)\n\n# Script reads in a csv file containing spiked read counts from TCR sequencing, and calculates the \n# what number is needed to change the counts of each spiked read to the mean. \n# It then takes the multiples for the largest read and smallest read and uses that as the scale\n# to normalize the FASTQ files with all the reads. \n# Prior to the full FASTQ file being normalized, the spiked reads are removed.\n#\n# Assumptions:\n#   1.  A CSV file per FASTQ file of the format ID,spike,count\n#   2.  A FASTQ file per CSV file\n#\n",
+    "contents" : "# Designed and developed by Jacob Bieker (jacob@bieker.us)\n\n# Script reads in a csv file containing spiked read counts from TCR sequencing, and calculates the \n# what number is needed to change the counts of each spiked read to the mean. \n# It then takes the multiples for the largest read and smallest read and uses that as the scale\n# to normalize the FASTQ files with all the reads. \n# Prior to the full FASTQ file being normalized, the spiked reads are removed.\n#\n# Assumptions:\n#   1.  A CSV file per FASTQ file of the format ID,spike,count\n#   2.  A FASTQ file per CSV file\n#   3.  Spiked reads are supposed to be present in the exact same frequency\n\n#############################################################################\n#\n#             Setup\n#\n#############################################################################\n\n#############################################################################\n#\n#             Spiked Read CSV code\n#\n#############################################################################\n\n",
     "created" : 1438794483095.000,
-    "dirty" : false,
+    "dirty" : true,
     "encoding" : "UTF-8",
     "folds" : "",
-    "hash" : "1366335659",
+    "hash" : "3972548047",
     "id" : "FC19BFA9",
-    "lastKnownWriteTime" : 1438796508,
+    "lastKnownWriteTime" : 1438796668,
     "path" : "C:/Development/TCRSeqNormalization/tcr_seq_normalizer.R",
     "project_path" : "tcr_seq_normalizer.R",
     "properties" : {
