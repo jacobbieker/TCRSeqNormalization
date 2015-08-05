@@ -67,9 +67,18 @@ for(spike_file in files) {
   
   #IDEA: go through vector/data.frame, get difference between smallest value and current value
   # Multiply by the difference and (fastq_percentage_per_step * delta_per_one_percent)
-  result_vector <- sapply(vectorized_spikes, function(x) FUN = (x) * (fastq_percentage_per_step * delta_per_one_percent))
+  result_vector <- sapply(vectorized_spikes, function(x) FUN = abs(x - vectorized_range) * (fastq_percentage_per_step * delta_per_one_percent))
+
+  final_values <- result_vector * vectorized_spikes
   
-  final_values <- rev(result_vector) * vectorized_spikes
+  # Test vector holding all the multiples needed to hit the mean
+  mean_test <- spiked_mean/data$V3 
+  
+  finals_testing <- mean_test * vectorized_spikes
+  
+  #New IDEA: Use teh 260 spiked points to estimate the amount necessary that does not hit one of the
+  # percentages, take the multiple above it, the multiple below, average, and apply that to the 
+  # FASTQ files, should be more accurate
   #TODO: Check if range is 0, if so, do nothing for
 }
 
