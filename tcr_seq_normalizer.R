@@ -37,5 +37,9 @@ for(spike_file in files) {
   spiked_max <- max(data[[3]])
   # Get the min
   spiked_min <- min(data[[3]])
+  # Get the smallest multiple that the FASTQ file will be normalized by
+  smallest_multiple <- (spiked_mean/spiked_max)
+  # Get the largest multiple that the FASTQ file will be normalized by
+  largest_multiple <- (spiked_mean/spiked_min)
 }
 
