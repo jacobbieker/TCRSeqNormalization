@@ -24,14 +24,17 @@
 #############################################################################
 
 #   identify all .csv files that should be the spiked read counts in the directory 
-spiked_files <- list.files(getwd(), pattern = "*xout.csv");
+spiked_files <- list.files(getwd(), pattern = "*_*.txt");
+print(spiked_files)
 #  Get all the MiTCR files with spiked reads removed in teh directory
-MiTCR_files <- list.files(getwd(), pattern = "*rm.csv");
+MiTCR_files <- list.files(getwd(), pattern = "*_*rm.csv");
+print(MiTCR_files)
 
 # Go through each file and read in the CSV spiked_reads, skpping the first line which gives no information
 # All operations on the spiked_reads will happen inside the for loop, so that it goes through each file
 # and each MiTCR file once
 for(spike_file in spiked_files) {
+  print(spike_file)
   spiked_reads <- read.csv(spike_file, header = FALSE, skip = 1);
   #Get the mean from the last column, which is the read count
   spiked_mean <- mean(spiked_reads[[3]])
