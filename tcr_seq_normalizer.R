@@ -64,9 +64,8 @@ for(spike_file in files) {
   data$V4 <- multiples_needed
   data$V5 <- percentages
   
-  #New IDEA: Use the 260 spiked points to estimate the amount necessary that does not hit one of the
+  # New IDEA: Use the 260 spiked points to estimate the amount necessary that does not hit one of the
   # percentages, take the multiple above it, the multiple below, average, and apply that to the 
   # FASTQ files, should be more accurate
-  #TODO: Check if range is 0, if so, do nothing for
 }
 

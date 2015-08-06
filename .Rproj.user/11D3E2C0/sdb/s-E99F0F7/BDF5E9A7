@@ -1,12 +1,12 @@
 {
-    "contents" : "*.pper\n*.Rhistory",
-    "created" : 1438796558242.000,
+    "contents" : "*.pper\n*.Rhistory\n*.txt",
+    "created" : 1438894642899.000,
     "dirty" : false,
     "encoding" : "UTF-8",
     "folds" : "",
-    "hash" : "2289387301",
-    "id" : "77DAFBCE",
-    "lastKnownWriteTime" : 1438796610,
+    "hash" : "919003504",
+    "id" : "BDF5E9A7",
+    "lastKnownWriteTime" : 1438894648,
     "path" : "C:/Development/TCRSeqNormalization/.gitignore",
     "project_path" : ".gitignore",
     "properties" : {
