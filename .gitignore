@@ -1,3 +1,6 @@
 *.pper
 *.Rhistory
 *.txt
+*.csv
+*.xls
+*.cls

@@ -24,21 +24,23 @@
 #############################################################################
 
 #   identify all .csv files that should be the spiked read counts in the directory 
-files <- list.files(getwd(), pattern = "*xout.csv");
+spiked_files <- list.files(getwd(), pattern = "*xout.csv");
+#  Get all the MiTCR files with spiked reads removed in teh directory
+MiTCR_files <- list.files(getwd(), pattern = "*rm.csv");
 
-# Go through each file and read in the CSV data, skpping the first line which gives no information
-# All operations on the data will happen inside the for loop, so that it goes through each file
-# and each FASTQ file once
-for(spike_file in files) {
-  data <- read.csv(spike_file, header = FALSE, skip = 1);
+# Go through each file and read in the CSV spiked_reads, skpping the first line which gives no information
+# All operations on the spiked_reads will happen inside the for loop, so that it goes through each file
+# and each MiTCR file once
+for(spike_file in spiked_files) {
+  spiked_reads <- read.csv(spike_file, header = FALSE, skip = 1);
   #Get the mean from the last column, which is the read count
-  spiked_mean <- mean(data[[3]])
+  spiked_mean <- mean(spiked_reads[[3]])
   
   # Test vector holding all the multiples needed to hit the mean
-  multiples_needed <- spiked_mean/data$V3 
+  multiples_needed <- spiked_mean/spiked_reads$V3 
   
-  #Puts the data in the data.frame for later use
-  data$V4 <- multiples_needed
+  #Puts the spiked_reads in the spiked_reads.frame for later use
+  spiked_reads$V4 <- multiples_needed
   
 }
 
