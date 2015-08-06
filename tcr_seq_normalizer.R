@@ -2,24 +2,18 @@
 
 # Script reads in a csv file containing spiked read counts from TCR sequencing, and calculates the 
 # what number is needed to change the counts of each spiked read to the mean. 
-# It then takes the multiples for the largest read and smallest read and uses that as the scale
-# to normalize the FASTQ files with all the reads. 
-# Prior to the full FASTQ file being normalized, the spiked reads are removed.
+# Using the spiked reads, it finds the corresponding VJ region in a MiTCR-formatted CSV file
+# It then normalizes the count for each region in the MiTCR file using the multiples from the spikes
 #
 # Assumptions:
-#   1.  A CSV file, named "<FASTQ File>xout.csv" per FASTQ file of the format ID,spike,count
-#   2.  A FASTQ file per CSV file
-#   3.  Spiked reads are supposed to be present in the exact same frequency
+#   1.  A CSV file, named "<MiTCR File>xout.csv" per MiTCR file of the format ID,spike,count
+#   2.  A MiTCR csv file per CSV file
+#   3.  A CSV file detailing the barcode-to-VJ-region 
+#   4.  Spiked reads are supposed to be present in the exact same frequency
 
 #############################################################################
 #
 #             Setup
-#
-#############################################################################
-
-#############################################################################
-#
-#             Normalization functions
 #
 #############################################################################
 
@@ -39,33 +33,12 @@ for(spike_file in files) {
   data <- read.csv(spike_file, header = FALSE, skip = 1);
   #Get the mean from the last column, which is the read count
   spiked_mean <- mean(data[[3]])
-  # The get max
-  spiked_max <- max(data[[3]])
-  # Get the min
-  spiked_min <- min(data[[3]])
-  # Get the smallest multiple that the FASTQ file will be normalized by
-  smallest_multiple <- (spiked_mean/spiked_max)
-  # Get the largest multiple that the FASTQ file will be normalized by
-  largest_multiple <- (spiked_mean/spiked_min)
-  # Getting the range for possible use at the scale
-  multiple_range <- largest_multiple - smallest_multiple
-  #Range of the spiked reads
-  spiked_range <- spiked_max - spiked_min
   
   # Test vector holding all the multiples needed to hit the mean
   multiples_needed <- spiked_mean/data$V3 
   
-  #Get the percentage of the range for each value, for later use with the multiple needed
-  percentages_raw <- vectorized_spikes - vectorized_small
-  percentage_change <- 100.00/max(percentages_raw)
-  percentages <- percentages_raw * percentage_change
-  
   #Puts the data in the data.frame for later use
   data$V4 <- multiples_needed
-  data$V5 <- percentages
   
-  # New IDEA: Use the 260 spiked points to estimate the amount necessary that does not hit one of the
-  # percentages, take the multiple above it, the multiple below, average, and apply that to the 
-  # FASTQ files, should be more accurate
 }
 
