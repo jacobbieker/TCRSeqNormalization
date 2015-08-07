@@ -28,7 +28,6 @@ spiked_files <- list.files(getwd(), pattern = "*_*.txt");
 print(spiked_files)
 #  Get all the MiTCR files with spiked reads removed in the directory
 MiTCR_files <- list.files(getwd(), pattern = "*_*rm.csv");
-MiTCR_files <- strsplit(MiTCR_files, "rm.csv")
 print(MiTCR_files)
 
 # Go through each file and read in the CSV spiked_reads, skpping the first line which gives no information
@@ -37,9 +36,12 @@ print(MiTCR_files)
 for(spike_file in spiked_files) {
   # Get the corresponding MiTCR file to go with the spiked file
   spiked_file_name <- strsplit(spike_file, ".txt");
-  corresponding_MiTCR <- match(spiked_file_name, MiTCR_files)
-  print(MiTCR_files[corresponding_MiTCR])
+  corresponding_MiTCR <- match(paste(spiked_file_name,"rm.csv",sep=""), MiTCR_files)
   
+  # Opens the matching MiTCR file, if such file exists
+  if(!is.na(MiTCR_files[corresponding_MiTCR])){
+  MiTCR_file_data <- read.csv(MiTCR_files[corresponding_MiTCR])
+  }
   
   spiked_reads <- read.csv(spike_file, header = FALSE, skip = 1);
   #Get the mean from the last column, which is the read count
