@@ -62,5 +62,10 @@ for(spike_file in spiked_files) {
       spiked_multiple_row <- subset(spiked_reads, spiked_reads$V == row$V.segments & spiked_reads$J == row$J.segments)
       row$Seq..Count <- spiked_multiple_row$multiples * row$Seq..Count
     }
+  
+  # After going through an applying all the multiples, write to CSV file, appending to 
+  # original file name
+  write.csv(MiTCR_file_data, file = str(MiTCR_files[corresponding_MiTCR]) + ".normalized")
+  
   }
 }
