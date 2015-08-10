@@ -38,12 +38,8 @@ for(spike_file in spiked_files) {
   spiked_file_name <- strsplit(spike_file, ".txt");
   corresponding_MiTCR <- match(paste(spiked_file_name,"rm.csv",sep=""), MiTCR_files)
   
-  # Opens the matching MiTCR file, if such file exists
-  if(!is.na(MiTCR_files[corresponding_MiTCR])){
-  MiTCR_file_data <- read.csv(MiTCR_files[corresponding_MiTCR])
-  }
-  
-  spiked_reads <- read.csv(spike_file, header = FALSE, skip = 1);
+  # Reads in the spiked_read counts
+  spiked_reads <- read.csv(spike_file, header = FALSE, skip = 1, stringsAsFactors = FALSE);
   #Get the mean from the last column, which is the read count
   spiked_mean <- mean(spiked_reads[[3]])
   
@@ -51,7 +47,12 @@ for(spike_file in spiked_files) {
   multiples_needed <- spiked_mean/spiked_reads$V3 
   
   #Puts the spiked_reads in the spiked_reads.frame for later use
-  spiked_reads$V4 <- multiples_needed
+  spiked_reads$multiples <- multiples_needed
   
+  # Opens the matching MiTCR file, if such file exists
+  if(!is.na(MiTCR_files[corresponding_MiTCR])){
+  MiTCR_file_data <- read.csv(MiTCR_files[corresponding_MiTCR])
+  
+  }
 }
 
