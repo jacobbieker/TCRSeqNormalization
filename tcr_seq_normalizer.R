@@ -53,14 +53,14 @@ for(spike_file in spiked_files) {
   if(!is.na(MiTCR_files[corresponding_MiTCR])){
   MiTCR_file_data <- read.csv(MiTCR_files[corresponding_MiTCR], stringsAsFactors = FALSE)
   # Get rid of the TRB that is before every V and J segment name, so it can be matched later
-  MiTCR_file_data$V.segments <- grep("^.*?V", "V", MiTCR_file_data$V.segments)
-  MiTCR_file_data$J.segments <- grep("^.*?J", "J", MiTCR_file_data$J.segments)
+  MiTCR_file_data$V.segments <- gsub("^.*?V", "V", MiTCR_file_data$V.segments)
+  MiTCR_file_data$J.segments <- gsub("^.*?J", "J", MiTCR_file_data$J.segments)
   
   # Go through every row in MiTCR data
     for(row in MiTCR_file_data) {
       # Subset to a smaller data.frame only those spiked reads that have the same V and J values
       spiked_multiple_row <- subset(spiked_reads, spiked_reads$V == row$V.segments & spiked_reads$J == row$J.segments)
-      row$`Seq. Count` <- spiked_multiple_row$multiples * row$Seq..Count
+      row$Seq..Count <- spiked_multiple_row$multiples * row$Seq..Count
     }
   }
 }
