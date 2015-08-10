@@ -52,7 +52,9 @@ for(spike_file in spiked_files) {
   # Opens the matching MiTCR file, if such file exists
   if(!is.na(MiTCR_files[corresponding_MiTCR])){
   MiTCR_file_data <- read.csv(MiTCR_files[corresponding_MiTCR])
-  
+    for(row in MiTCR_file_data) {
+      spiked_multiple_row <- subset(spiked_reads, spiked_reads$V == row$`V segments` & spiked_reads$J == row$`J segments`)
+      row$`Seq. Count` <- spiked_multiple_row$multiples * row$`Seq. Count`
+    }
   }
 }
-
