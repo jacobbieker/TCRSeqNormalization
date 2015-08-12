@@ -37,12 +37,14 @@ for(spike_file in spiked_files) {
   corresponding_MiTCR <- match(paste(spiked_file_name,"rm.csv",sep=""), MiTCR_files)
   
   # Reads in the spiked_read counts
-  spiked_reads <- read.csv(spike_file, header = FALSE, skip = 1, stringsAsFactors = FALSE);
+  all_content <- readLines(spike_file)
+  skip_second <- all_content[-2]
+  spiked_reads <- read.csv(textConnection(skip_second), header = TRUE, stringsAsFactors = FALSE)
   #Get the mean from the last column, which is the read count
   spiked_mean <- mean(spiked_reads[[3]])
   
   # Test vector holding all the multiples needed to hit the mean
-  multiples_needed <- spiked_mean/spiked_reads$V3 
+  multiples_needed <- spiked_mean/spiked_reads$count
   
   #Puts the spiked_reads in the spiked_reads.frame for later use
   spiked_reads$multiples <- multiples_needed
