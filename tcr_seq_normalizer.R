@@ -57,7 +57,9 @@ for(spike_file in spiked_files) {
   MiTCR_file_data$J.segments <- gsub("^.*?J", "J", MiTCR_file_data$J.segments)
   
   # Go through every row in MiTCR data
-    for(row in MiTCR_file_data) {
+    for(index in 1:nrow(MiTCR_file_data)) {
+      # Get the row data
+      row <- MiTCR_file_data[index,]
       # Subset to a smaller data.frame only those spiked reads that have the same V and J values
       spiked_multiple_row <- subset(spiked_reads, spiked_reads$V == row$V.segments & spiked_reads$J == row$J.segments)
       row$Seq..Count <- spiked_multiple_row$multiples * row$Seq..Count
