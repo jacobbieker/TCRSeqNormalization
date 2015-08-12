@@ -1,0 +1,5 @@
+# T-Cell Receptor Normalizer
+This script is designed to take CSV files from MiTCR and a CSV file of the counts of spiked reads and normalizes the MiTCR output based off those spiked reads.
+
+# Usage
+Have a CSV file, with a ".txt" extension, 
