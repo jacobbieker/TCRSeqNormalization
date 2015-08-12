@@ -57,18 +57,18 @@ for(spike_file in spiked_files) {
   MiTCR_file_data$J.segments <- gsub("^.*?J", "J", MiTCR_file_data$J.segments)
   
   # Go through every row in MiTCR data
-    for(index in 1:nrow(MiTCR_file_data)) {
+    for(index in 1:nrow(spiked_reads)) {
       # Get the row data
-      row <- MiTCR_file_data[index,]
+      row <- spiked_reads[index,]
       # Subset to a smaller data.frame only those spiked reads that have the same V and J values
-      spiked_multiple_row <- subset(spiked_reads, spiked_reads$V == row$V.segments & spiked_reads$J == row$J.segments)
-      print(spiked_multiple_row)
-      row$Seq..Count <- spiked_multiple_row$multiples * row$Seq..Count
+      MiTCR_multiple_row <- subset(MiTCR_file_data, row$V == MiTCR_file_data$V.segments & row$J == MiTCR_file_data$J.segments)
+      print(MiTCR_multiple_row)
+      MiTCR_multiple_row$Seq..Count <- row$multiples * MiTCR_multiple_row$Seq..Count
     }
   
   # After going through an applying all the multiples, write to CSV file, appending to 
   # original file name
-  write.csv(MiTCR_file_data, file = str(MiTCR_files[corresponding_MiTCR]) + ".normalized")
+  write.csv(MiTCR_file_data, file = paste(MiTCR_files[corresponding_MiTCR], ".normalized"), quote = FALSE)
   
   }
 }
