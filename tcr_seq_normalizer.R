@@ -25,10 +25,8 @@
 
 #   identify all .csv files that should be the spiked read counts in the directory 
 spiked_files <- list.files(getwd(), pattern = "*_*.txt");
-print(spiked_files)
 #  Get all the MiTCR files with spiked reads removed in the directory
 MiTCR_files <- list.files(getwd(), pattern = "*_*rm.csv");
-print(MiTCR_files)
 
 # Go through each file and read in the CSV spiked_reads, skpping the first line which gives no information
 # All operations on the spiked_reads will happen inside the for loop, so that it goes through each file
@@ -62,6 +60,7 @@ for(spike_file in spiked_files) {
       row <- MiTCR_file_data[index,]
       # Subset to a smaller data.frame only those spiked reads that have the same V and J values
       spiked_multiple_row <- subset(spiked_reads, spiked_reads$V == row$V.segments & spiked_reads$J == row$J.segments)
+      print(spiked_multiple_row)
       row$Seq..Count <- spiked_multiple_row$multiples * row$Seq..Count
     }
   
