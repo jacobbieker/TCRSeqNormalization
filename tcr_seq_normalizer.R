@@ -56,19 +56,21 @@ for(spike_file in spiked_files) {
   MiTCR_file_data$V.segments <- gsub("^.*?V", "V", MiTCR_file_data$V.segments)
   MiTCR_file_data$J.segments <- gsub("^.*?J", "J", MiTCR_file_data$J.segments)
   
+  # Empty data.frame to fill with the modified MiTCR data
+  MiTCR_output <- data.frame();
   # Go through every row in MiTCR data
     for(index in 1:nrow(spiked_reads)) {
       # Get the row data
       row <- spiked_reads[index,]
       # Subset to a smaller data.frame only those spiked reads that have the same V and J values
       MiTCR_multiple_row <- subset(MiTCR_file_data, row$V == MiTCR_file_data$V.segments & row$J == MiTCR_file_data$J.segments)
-      print(MiTCR_multiple_row)
       MiTCR_multiple_row$Seq..Count <- row$multiples * MiTCR_multiple_row$Seq..Count
+      MiTCR_output <- rbind(MiTCR_output, MiTCR_multiple_row)
     }
   
   # After going through an applying all the multiples, write to CSV file, appending to 
-  # original file name
-  write.csv(MiTCR_file_data, file = paste(MiTCR_files[corresponding_MiTCR], ".normalized"), quote = FALSE)
+  # original file name, only outputs those rows that match both a V and J segment in spiked_reads
+  write.csv(MiTCR_output, file = paste(MiTCR_files[corresponding_MiTCR], ".normalized"), quote = FALSE, row.names = FALSE)
   
   }
 }
