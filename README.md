@@ -8,7 +8,8 @@ This script is designed to take CSV files from MiTCR and a CSV file of the count
     ID,barcode-sequence,count,V segment,J segment
     
 3. The main file with all the reads, is a MiTCR output file in the CSV format.
+4. The main file has had all the spiked reads taken out from the data
     
 
 # Usage
-Have a CSV file, with a ".txt" extension, 
+Have both the spiked count file and MiTCR output file in the same directory as the R script, then run the R script.
