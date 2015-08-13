@@ -64,7 +64,11 @@ for(spike_file in spiked_files) {
       row <- spiked_reads[index,]
       # Subset to a smaller data.frame only those spiked reads that have the same V and J values
       MiTCR_multiple_row <- subset(MiTCR_file_data, row$V == MiTCR_file_data$V.segments & row$J == MiTCR_file_data$J.segments)
+      # Point of this whole script, change the sequence count
       MiTCR_multiple_row$Seq..Count <- row$multiples * MiTCR_multiple_row$Seq..Count
+      # Then change the percentage by the same amount, as not all counts are changed the same
+      MiTCR_multiple_row$Percent <- row$multiples * MiTCR_multiple_row$Percent
+      # Add to the data.frame that will be the CSV file
       MiTCR_output <- rbind(MiTCR_output, MiTCR_multiple_row)
     }
   
