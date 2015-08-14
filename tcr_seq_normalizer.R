@@ -77,7 +77,7 @@ for(spike_file in spiked_files) {
   
   # After going through an applying all the multiples, write to CSV file, appending to 
   # original file name, only outputs those rows that match both a V and J segment in spiked_reads
-  write.csv(MiTCR_output, file = paste(MiTCR_files[corresponding_MiTCR], ".normalized"), quote = FALSE, row.names = FALSE)
+  write.csv(MiTCR_output, file = paste(MiTCR_files[corresponding_MiTCR], sep = "", ".normalized"), quote = FALSE, row.names = FALSE)
   
   }
 }
