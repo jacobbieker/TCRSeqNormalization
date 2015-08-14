@@ -41,7 +41,7 @@ for(spike_file in spiked_files) {
   skip_second <- all_content[-2]
   spiked_reads <- read.csv(textConnection(skip_second), header = TRUE, stringsAsFactors = FALSE)
   #Get the mean from the last column, which is the read count
-  spiked_mean <- mean(spiked_reads[[3]])
+  spiked_mean <- mean(spiked_reads[[5]])
   
   # Test vector holding all the multiples needed to hit the mean
   multiples_needed <- spiked_mean/spiked_reads$count
@@ -55,6 +55,9 @@ for(spike_file in spiked_files) {
   # Get rid of the TRB that is before every V and J segment name, so it can be matched later
   MiTCR_file_data$V.segments <- gsub("^.*?V", "V", MiTCR_file_data$V.segments)
   MiTCR_file_data$J.segments <- gsub("^.*?J", "J", MiTCR_file_data$J.segments)
+  
+  # Remove the extra characters for the V segments in the spiked counts, so matches occur
+  spiked_reads$V <- gsub("-","", spiked_reads$V)
   
   # Empty data.frame to fill with the modified MiTCR data
   MiTCR_output <- data.frame();
